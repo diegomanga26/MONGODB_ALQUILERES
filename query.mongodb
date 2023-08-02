@@ -352,3 +352,40 @@ db.Cliente.find({},{_id:0} );
  */
 use("db_campus_alquiler");
 db.Automovil.find({},{_id:0} );
+/**
+ * !Petición de los alquileres activos con datos de clientes relacionados:
+ */
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {$and:[
+            {Tipo:{$eq:"Alquiler"}},
+            {Estado:{$eq:"Activo"}}
+        ]}
+    }
+    ,
+    {
+        $lookup: {
+          from: "Cliente",
+          localField: "ID_Cliente",
+          foreignField: "ID",
+          as:"Cliente"
+        }
+    }
+    ,
+    {
+        $unwind:'$Cliente'
+    },
+    {
+        $project: {
+            _id:0,
+          "Cliente._id":0,
+          Fecha_Inicio:0,
+          Fecha_Fin:0,
+          Costo_Total:0,
+          ID:0,
+          ID_Cliente:0,
+          ID_Automovil:0
+        }
+    }
+]);
