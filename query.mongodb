@@ -347,3 +347,8 @@ db.Sucursal.find( { Anio: { $gt: 2020 } } );
 use("db_campus_alquiler");
 // TRAER TODOS LOS DATOS SIN SU LLAVE "_id".
 db.Cliente.find({},{_id:0} );
+/**
+ * !Petición de toda la tabla Automoviles:
+ */
+use("db_campus_alquiler");
+db.Automovil.find({},{_id:0} );
