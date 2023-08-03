@@ -545,14 +545,14 @@ db.getCollection("Contrato").aggregate([
  */
 
 use("db_campus_alquiler");
-db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 },{_id: 0,Tipo: 0});
+db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 }, { _id: 0, Tipo: 0 });
 
 /**
  * !Petición de listar los empleados con el cargo de "Vendedor".
  */
 
 use("db_campus_alquiler");
-db.Empleado.find({Cargo: "Vendedor"}, { _id: 0 });
+db.Empleado.find({ Cargo: "Vendedor" }, { _id: 0 });
 
 /**
  * !Petición de mostrar la cantidad total de automóviles disponibles en cada sucursal.
@@ -566,28 +566,28 @@ db.Sucursal.find({}, { _id: 0 });
  */
 
 use("db_campus_alquiler");
-db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 },{_id: 0,Tipo: 0,Fecha_Inicio: 0,Fecha_Fin:0,ID_Automovil:0,ID_Cliente:0});
+db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 }, { _id: 0, Tipo: 0, Fecha_Inicio: 0, Fecha_Fin: 0, ID_Automovil: 0, ID_Cliente: 0 });
 
 /**
  * !Petición de listar los clientes con el DNI específico. 
  */
 
 use("db_campus_alquiler");
-db.Cliente.find({DNI: '12345678'}, { _id: 0 });
+db.Cliente.find({ DNI: '12345678' }, { _id: 0 });
 
 /**
  * !Petición mostrar todos los automóviles con una capacidad mayor a 5 personas. 
  */
 
 use("db_campus_alquiler");
-db.Automovil.find({ Capacidad: { $gt: 5 } },{_id: 0 });
+db.Automovil.find({ Capacidad: { $gt: 5 } }, { _id: 0 });
 
 /**
  * !Petición de obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'.
  */
 
 use("db_campus_alquiler");
-db.getCollection("Contrato").find({Tipo: "Alquiler",Fecha_Inicio: ISODate('2023-07-05')},{_id:0});
+db.getCollection("Contrato").find({ Tipo: "Alquiler", Fecha_Inicio: ISODate('2023-07-05') }, { _id: 0 });
 
 /**
  * !Petición de listar las reservas pendientes realizadas por un cliente específico.
@@ -678,14 +678,14 @@ db.getCollection("Contrato").aggregate([
  */
 
 use("db_campus_alquiler");
-db.Automovil.find({},{_id: 0}).sort({ Marca: 1, Modelo: 1 });
+db.Automovil.find({}, { _id: 0 }).sort({ Marca: 1, Modelo: 1 });
 
 /**
  * !Petición de mostrar la cantidad total de automóviles en cada sucursal junto con su dirección.
  */
 
 use("db_campus_alquiler");
-db.Sucursal.find({}, { _id: 0, Telefono: 0,});
+db.Sucursal.find({}, { _id: 0, Telefono: 0, });
 
 /**
  * !Petición de Obtener la cantidad total de alquileres registrados en la base de datos. 
@@ -700,7 +700,40 @@ db.getCollection("Contrato").aggregate([
     {
         $group: {
             _id: "ID",
-            Cantidad_Alquileres: {$sum:1}
+            Cantidad_Alquileres: { $sum: 1 }
         }
+    }
+]);
+
+/**
+ * !Petición de mostrar los automóviles con capacidad igual a 5 personas y que estén disponibles. 
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            $and: [
+                { Tipo: { $eq: "Alquiler" } },
+                { Estado: { $eq: "Disponible" } }
+            ]
+        }
+    }
+    ,
+    {
+        $lookup: {
+            from: "Automovil",
+            localField: "ID_Automovil",
+            foreignField: "ID",
+            as: "Automovil"
+        }
+    }
+    ,
+    {
+        $unwind: "$Automovil"
+    }
+    ,
+    {
+        $match: { "Automovil.Capacidad": 5 }
     }
 ]);
