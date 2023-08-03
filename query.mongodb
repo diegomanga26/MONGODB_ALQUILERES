@@ -482,3 +482,17 @@ db.getCollection("Contrato").aggregate([
         }
     }
 ]);
+
+/**
+ * !Petición de obtener los detalles del alquiler con el ID_Alquilerespecífico.
+ */
+/**
+ * ?Se agregan primero los parametros y si se quiere omitir algo en la estracción se agregan los campos separados con una ",".
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 },{_id: 0,Tipo: 0});
+
+/**
+ * 
+ */
