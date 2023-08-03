@@ -581,3 +581,10 @@ db.Cliente.find({DNI: '12345678'}, { _id: 0 });
 
 use("db_campus_alquiler");
 db.Automovil.find({ Capacidad: { $gt: 5 } },{_id: 0 });
+
+/**
+ * !Petición de obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'.
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").find({Tipo: "Alquiler",Fecha_Inicio: ISODate('2023-07-05')},{_id:0});
