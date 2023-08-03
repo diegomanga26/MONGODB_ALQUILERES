@@ -628,3 +628,51 @@ db.getCollection("Contrato").aggregate([
 
 use("db_campus_alquiler");
 db.Empleado.find({ $or: [{ Cargo: "Gerente" }, { Cargo: "Asistente" }] }, { _id: 0 });
+
+/**
+ * !Petición de obtener los datos de los clientes que realizaron al menos un alquiler.
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            Tipo: "Alquiler"
+        }
+    },
+    {
+        $group: {
+            _id: "$ID_Cliente",
+            contratos: { $push: "$$ROOT" }
+        }
+    },
+    {
+        $match: {
+            "contratos": { $ne: [] }
+        }
+    },
+    {
+        $lookup: {
+            from: "Cliente",
+            localField: "_id",
+            foreignField: "ID",
+            as: "Cliente"
+        }
+    },
+    {
+        $unwind: "$Cliente"
+    },
+    {
+        $project: {
+            _id: 0,
+            ID_Cliente: "$_id",
+            Nombre: "$Cliente.Nombre",
+            Apellido: "$Cliente.Apellido",
+            DNI: "$Cliente.DNI"
+        }
+    }
+]);
+
+/**
+ * 
+ */
