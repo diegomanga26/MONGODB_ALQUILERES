@@ -737,3 +737,23 @@ db.getCollection("Contrato").aggregate([
         $match: { "Automovil.Capacidad": 5 }
     }
 ]);
+
+/**
+ * !Petición de Obtener los datos del cliente que realizó la reserva con
+ */
+
+/**
+ * !Petición de listar los alquileres con fecha de inicio entre '2023-07-05' y '2023-07-10'.
+ */
+/**
+ * ?Recordar que "$gte" significa mayor o igual qué y sólo "$gt" significa mayor qué.
+ */
+
+use("db_campus_alquiler");
+db.Contrato.find(    
+    {
+        Tipo: "Alquiler" ,
+        Fecha_Inicio: { $gte: ISODate('2023-07-05'), $lte: ISODate('2023-07-10') }
+    },
+    { _id: 0 }
+);
