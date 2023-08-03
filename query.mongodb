@@ -686,3 +686,21 @@ db.Automovil.find({},{_id: 0}).sort({ Marca: 1, Modelo: 1 });
 
 use("db_campus_alquiler");
 db.Sucursal.find({}, { _id: 0, Telefono: 0,});
+
+/**
+ * !Petición de Obtener la cantidad total de alquileres registrados en la base de datos. 
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: { Tipo: "Alquiler" }
+    }
+    ,
+    {
+        $group: {
+            _id: "ID",
+            Cantidad_Alquileres: {$sum:1}
+        }
+    }
+]);
