@@ -567,3 +567,10 @@ db.Sucursal.find({}, { _id: 0 });
 
 use("db_campus_alquiler");
 db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 },{_id: 0,Tipo: 0,Fecha_Inicio: 0,Fecha_Fin:0,ID_Automovil:0,ID_Cliente:0});
+
+/**
+ * !Petición de listar los clientes con el DNI específico. 
+ */
+
+use("db_campus_alquiler");
+db.Cliente.find({DNI: '12345678'}, { _id: 0 });
