@@ -600,7 +600,7 @@ db.getCollection("Contrato").aggregate([
             $and: [
                 { Tipo: { $eq: "Reserva" } },
                 { Estado: { $eq: "Pendiente" } },
-                { ID_Cliente: { $eq: 1 } }
+                { ID_Cliente: { $eq: 2 } }
             ]
         }
     }
@@ -621,3 +621,10 @@ db.getCollection("Contrato").aggregate([
         }
     }
 ]);
+
+/**
+ * !Petición de mostrar los empleados con cargo de "Gerente" o "Asistente". 
+ */
+
+use("db_campus_alquiler");
+db.Empleado.find({ $or: [{ Cargo: "Gerente" }, { Cargo: "Asistente" }] }, { _id: 0 });
