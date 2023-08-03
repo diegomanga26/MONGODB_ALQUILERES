@@ -588,3 +588,36 @@ db.Automovil.find({ Capacidad: { $gt: 5 } },{_id: 0 });
 
 use("db_campus_alquiler");
 db.getCollection("Contrato").find({Tipo: "Alquiler",Fecha_Inicio: ISODate('2023-07-05')},{_id:0});
+
+/**
+ * !Petición de listar las reservas pendientes realizadas por un cliente específico.
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            $and: [
+                { Tipo: { $eq: "Reserva" } },
+                { Estado: { $eq: "Pendiente" } },
+                { ID_Cliente: { $eq: 1 } }
+            ]
+        }
+    }
+    ,
+    {
+        $lookup: {
+            from: "Cliente",
+            localField: "ID_Cliente",
+            foreignField: "ID",
+            as: "Reserva"
+        }
+    }
+    ,
+    {
+        $project: {
+            _id: 0,
+            "Reserva._id": 0
+        }
+    }
+]);
