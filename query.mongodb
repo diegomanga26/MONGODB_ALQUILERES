@@ -679,3 +679,10 @@ db.getCollection("Contrato").aggregate([
 
 use("db_campus_alquiler");
 db.Automovil.find({},{_id: 0}).sort({ Marca: 1, Modelo: 1 });
+
+/**
+ * !Petición de mostrar la cantidad total de automóviles en cada sucursal junto con su dirección.
+ */
+
+use("db_campus_alquiler");
+db.Sucursal.find({}, { _id: 0, Telefono: 0,});
