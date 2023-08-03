@@ -372,6 +372,55 @@ db.getCollection("Contrato").aggregate([
     }
 ]);
 
+db.createCollection("Empleado");
+db.Empleado.insertMany([
+    {
+        id_: 1,
+        Nombre: "Ana",
+        Apellido: "Gomez",
+        DNI: "123456789",
+        Direccion: "Calle 111",
+        Telefono: "1111111111",
+        Cargo: "Gerente"
+    },
+    {
+        id_: 2,
+        Nombre: "Luis",
+        Apellido: "Rodriguez",
+        DNI: "987654321",
+        Direccion: "Avenida 222",
+        Telefono: "2222222222",
+        Cargo: "Asistente"
+    },
+    {
+        id_: 3,
+        Nombre: "Elena",
+        Apellido: "Fernandez",
+        DNI: "456789012",
+        Direccion: "Plaza 333",
+        Telefono: "3333333333",
+        Cargo: "Vendedor"
+    },
+    {
+        id_: 4,
+        Nombre: "Mario",
+        Apellido: "Torres",
+        DNI: "210987654",
+        Direccion: "Ruta 444",
+        Telefono: "4444444444",
+        Cargo: "Recepcionista"
+    },
+    {
+        id_: 5,
+        Nombre: "Carlos",
+        Apellido: "Hernandez",
+        DNI: "543210987",
+        Direccion: "Carretera 555",
+        Telefono: "5555555555",
+        Cargo: "Chofer"
+    }
+]);
+
 use("db_campus_alquiler");
 // MÉTODO SIRVE PARA TRAER LOS OBJETOS QUE CONTENGAN Anio DESPUES DE 2020 (SE PUEDE CAMBIAR ID POR OTRA VARIABLE).
 db.Sucursal.find({ Anio: { $gt: 2020 } });
@@ -494,5 +543,6 @@ use("db_campus_alquiler");
 db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 },{_id: 0,Tipo: 0});
 
 /**
- * 
+ * !Petición de listar los empleados con el cargo de "Vendedor".
  */
+
