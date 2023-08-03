@@ -546,3 +546,5 @@ db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 },{_id: 0,Tipo: 0
  * !Petición de listar los empleados con el cargo de "Vendedor".
  */
 
+use("db_campus_alquiler");
+db.Empleado.find({Cargo: "Vendedor"}, { _id: 0 });
