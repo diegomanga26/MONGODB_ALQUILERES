@@ -410,6 +410,406 @@ db.createCollection("registro_entrega", {
     },
     },
 });
+use("db_campus_alquiler");
+db.sucursal.insertMany([
+    {
+        sucursal_id:1,
+        nombre:"Sucursal A",
+        direccion:"Calle Principal 123",
+        telefono:"1111111111"
+    },
+    {
+        sucursal_id:2,
+        nombre:"Sucursal B",
+        direccion:"Avenida Central 456",
+        telefono:"2222222222"
+    },
+    {
+        sucursal_id:3,
+        nombre:"Sucursal C",
+        direccion:"Plaza Principal 789",
+        telefono:"3333333333"
+    },
+    {
+        sucursal_id:4,
+        nombre:"Sucursal D",
+        direccion:"Ruta Secundaria 101",
+        telefono:"4444444444"
+    },
+    {
+        sucursal_id:5,
+        nombre:"Sucursal E",
+        direccion:"Carretera Principal 987",
+        telefono:"5555555555"
+    }
+]);
+
+use("db_campus_alquiler");
+db.automovil.insertMany([
+    {
+        automovil: 1,
+        marca: "Toyota",
+        modelo: "Corolla",
+        anio: 2021,
+        tipo:"Sedan",
+        capacidad: 5,
+        precio_diaro:50.00
+    },
+    {
+        automovil: 2,
+        marca: "Honda",
+        modelo: "Civic",
+        anio: 2020,
+        tipo:"Sedan",
+        capacidad: 5,
+        precio_diaro:45.00
+    },
+    {
+        automovil: 3,
+        marca: "Ford",
+        modelo: "Explorer",
+        anio: 2019,
+        tipo:"SUV",
+        capacidad: 7,
+        precio_diaro:60.00
+    },
+    {
+        automovil: 4,
+        marca: "Chevrolet",
+        modelo: "Equinox",
+        anio: 2022,
+        tipo:"SUV",
+        capacidad: 5,
+        precio_diaro:55.00
+    },
+    {
+        automovil: 5,
+        marca: "Nissan",
+        modelo: "Sentra",
+        anio: 2022,
+        tipo:"Sedan",
+        capacidad: 4,
+        precio_diaro:48.00
+    }
+]);
+
+use("db_campus_alquiler");
+db.sucursal_automovil.insertMany([
+    {
+        sucursal: 1,
+        automovil: 1,
+        cantidad_autos:3
+    },
+    {
+        sucursal: 2,
+        automovil: 2,
+        cantidad_autos:5
+    },
+    {
+        sucursal: 3,
+        automovil: 3,
+        cantidad_autos:2
+    },
+    {
+        sucursal: 4,
+        automovil: 4,
+        cantidad_autos:4
+    },
+    {
+        sucursal: 5,
+        automovil: 5,
+        cantidad_autos:1
+    }
+]);
+
+use("db_campus_alquiler");
+db.reserva.insertMany([
+    {
+        reserva: 1,
+        cliente: 2,
+        automovil: 1,
+        reserva_fecha: "2023-07-06",
+        inicio: "2023-07-10",
+        fin: "2023-07-15",
+        estado: "Pendiente"
+    },
+    {
+        reserva: 2,
+        cliente: 3,
+        automovil: 3,
+        reserva_fecha: "2023-07-07",
+        inicio: "2023-07-12",
+        fin: "2023-07-17",
+        estado: "Pendiente"
+    },
+    {
+        reserva: 3,
+        cliente: 4,
+        automovil: 2,
+        reserva_fecha: "2023-07-08",
+        inicio: "2023-07-14",
+        fin: "2023-07-19",
+        estado: "Pendiente"
+    },
+    {
+        reserva: 4,
+        cliente: 5,
+        automovil: 4,
+        reserva_fecha: "2023-07-09",
+        inicio: "2023-07-15",
+        fin: "2023-07-20",
+        estado: "Pendiente"
+    },
+    {
+        reserva: 5,
+        cliente: 5,
+        automovil: 5,
+        reserva_fecha: "2023-07-10",
+        inicio: "2023-07-16",
+        fin: "2023-07-21",
+        estado: "Pendiente"
+    }
+]);
+
+use("db_campus_alquiler");
+db.cliente.insertMany([
+    {
+        cliente: 1,
+        nombre: "Juan",
+        apellido:"Perez",
+        documento:"12345678",
+        direccion:"Calle 123",
+        numero:"11111111",
+        Email:"juan@example.com"
+    },
+    {
+        cliente: 2,
+        nombre: "Maria",
+        apellido:"Lopez",
+        documento:"87654321",
+        direccion:"Avenida 456",
+        numero:"22222222",
+        Email:"maria@example.com"
+    },
+    {
+        cliente: 3,
+        nombre: "Pedro",
+        apellido:"Gonzalez",
+        documento:"56789012",
+        direccion:"Plaza 789",
+        numero:"33333333",
+        Email:"pedro@example.com"
+    },
+    {
+        cliente: 4,
+        nombre: "Laura",
+        apellido:"Martinez",
+        documento:"09876543",
+        direccion:"Ruta 101",
+        numero:"44444444",
+        Email:"laura@example.com"
+    },
+    {
+        cliente: 5,
+        nombre: "Carlos",
+        apellido:"Gomez",
+        documento:"43210987",
+        direccion:"Calle 987",
+        numero:"55555555",
+        Email:"carlos@example.com"
+    },
+]);
+
+use("db_campus_alquiler");
+db.alquiler.insertMany([
+    {
+        alquiler: 1,
+        cliente: 1,
+        automovil: 3,
+        inicio: "2023-07-01",
+        fin: "2023-07-05",
+        costo: 240.00,
+        estado: "Activo"
+    },
+    {
+        alquiler: 2,
+        cliente: 2,
+        automovil: 4,
+        inicio: "2023-07-02",
+        fin: "2023-07-07",
+        costo: 275.00,
+        estado: "Disponible"
+    },
+    {
+        alquiler: 3,
+        cliente: 3,
+        automovil: 1,
+        inicio: "2023-07-03",
+        fin: "2023-07-06",
+        costo: 150.00,
+        estado: "Activo"
+    },
+    {
+        alquiler: 4,
+        cliente: 4,
+        automovil: 5,
+        inicio: "2023-07-04",
+        fin: "2023-07-08",
+        costo: 192.00,
+        estado: "Activo"
+    },
+    {
+        alquiler: 5,
+        cliente: 5,
+        automovil: 2,
+        inicio: "2023-07-05",
+        fin: "2023-07-09",
+        costo: 225.00,
+        estado: "Disponible"
+    },
+]);
+
+use("db_campus_alquiler");
+db.registro_devolucion.insertMany([
+    {
+        registro: 1,
+        alquiler: 1,
+        empleado: 3,
+        devolucion: "2023-07-10",
+        combustible: 10.00,
+        kilometraje: 2500,
+        monto: 20.00,
+    },
+    {
+        registro: 2,
+        alquiler: 2,
+        empleado: 4,
+        devolucion: "2023-07-12",
+        combustible: 15.00,
+        kilometraje: 2100,
+        monto: 15.00,
+    },
+    {
+        registro: 3,
+        alquiler: 3,
+        empleado: 1,
+        devolucion: "2023-07-11",
+        combustible: 20.00,
+        kilometraje: 2300,
+        monto: 25.00,
+    },
+    {
+        registro: 4,
+        alquiler: 4,
+        empleado: 5,
+        devolucion: "2023-07-13",
+        combustible: 25.00,
+        kilometraje: 2600,
+        monto: 30.00,
+    },
+    {
+        registro: 5,
+        alquiler: 5,
+        empleado: 2,
+        devolucion: "2023-07-14",
+        combustible: 18.00,
+        kilometraje: 2000,
+        monto: 12.00,
+    }
+]);
+
+use("db_campus_alquiler");
+db.registro_entrega.insertMany([
+    {
+        registro: 1,
+        alquiler: 1,
+        empleado: 3,
+        entrega: "2023-07-05",
+        combustible: 40.00,
+        kilometraje: 2000,
+    },
+    {
+        registro: 2,
+        alquiler: 2,
+        empleado: 4,
+        entrega: "2023-07-07",
+        combustible: 30.00,
+        kilometraje: 1800,
+    },
+    {
+        registro: 3,
+        alquiler: 3,
+        empleado: 1,
+        entrega: "2023-07-06",
+        combustible: 45.00,
+        kilometraje: 2200,
+    },
+    {
+        registro: 4,
+        alquiler: 4,
+        empleado: 5,
+        entrega: "2023-07-08",
+        combustible: 50.00,
+        kilometraje: 2400,
+    },
+    {
+        registro: 5,
+        alquiler: 5,
+        empleado: 2,
+        entrega: "2023-07-09",
+        combustible: 35.00,
+        kilometraje: 1900,
+    }
+]);
+
+use("db_campus_alquiler");
+db.empleado.insertMany([
+    {
+        empleado: 1,
+        nombre: "Ana",
+        apellido: "Gomez",
+        documento: "123456789",
+        direccion: "Calle 111",
+        numero: "1111111111",
+        cargo: "Gerente"
+    },
+    {
+        empleado: 2,
+        nombre: "Luis",
+        apellido: "Rodriguez",
+        documento: "987654321",
+        direccion: "Avenida 222",
+        numero: "2222222222",
+        cargo: "Asistente"
+    },
+    {
+        empleado: 3,
+        nombre: "Elena",
+        apellido: "Fernandez",
+        documento: "456789012",
+        direccion: "Plaza 333",
+        numero: "3333333333",
+        cargo: "Vendedor"
+    },
+    {
+        empleado: 4,
+        nombre: "Mario",
+        apellido: "Torres",
+        documento: "210987654",
+        direccion: "Ruta 444",
+        numero: "4444444444",
+        cargo: "Asistente"
+    },
+    {
+        empleado: 5,
+        nombre: "Carlos",
+        apellido: "Hernandez",
+        documento: "543210987",
+        direccion: "Carretera 555",
+        numero: "5555555555",
+        cargo: "Vendedor"
+    }
+]);
 
 use("db_campus_alquiler");
 // MÉTODO SIRVE PARA TRAER LOS OBJETOS QUE CONTENGAN Anio DESPUES DE 2020 (SE PUEDE CAMBIAR ID POR OTRA VARIABLE).
@@ -420,21 +820,21 @@ db.Sucursal.find({ Anio: { $gt: 2020 } });
  */
 use("db_campus_alquiler");
 // TRAER TODOS LOS DATOS SIN SU LLAVE "_id".
-db.Cliente.find({}, { _id: 0 });
+db.cliente.find({}, { _id: 0 });
 /**
  * !Petición de toda la tabla Automoviles:
  */
 use("db_campus_alquiler");
-db.Automovil.find({}, { _id: 0 });
+db.automovil.find({}, { _id: 0 });
 /**
  * !Petición de los alquileres activos con datos de clientes relacionados:
  */
 use("db_campus_alquiler");
-db.getCollection("Contrato").aggregate([
+db.getCollection("contrato").aggregate([
     {
         $match: {
             $and: [
-                { Tipo: { $eq: "Alquiler" } },
+                { Tipo: { $eq: "alquiler" } },
                 { Estado: { $eq: "Activo" } }
             ]
         }
@@ -465,7 +865,6 @@ db.getCollection("Contrato").aggregate([
         }
     }
 ]);
-
 /**
  * !Peticion de mostrar todas las reservas pendientes con los datos del cliente y el automóvil reservado.
  */
