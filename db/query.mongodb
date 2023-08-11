@@ -1,0 +1,744 @@
+/* Esquema de la coleccion de 'cliente'. */ 
+use("db_campus_alquiler");
+db.createCollection("cliente", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            additionalProperties:false,
+            title: "cliente",
+            required: ["cliente", "nombre", "apellido", "documento", "direccion", "numero"],
+            properties: {
+                _id: {
+                    bsonType: 'objectId'
+                },
+                cliente: {
+                    bsonType: "int",
+                    description: `{"status": "402", "message": "El parametro ID_Cliente es obligatorio y debe ser un numero entero (int)"}` 
+                },
+                nombre: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro Nombre_Cliente es obligatorio y debe ser un string"}`
+                },
+                apellido: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro Apellido_cliente es obligatorio y debe ser un string"}`
+                },
+                documento: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro DNI es obligatorio y debe ser un string"}`
+                },
+                direccion: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro direccion es obligatoria y debe ser un string"}` 
+                },
+                numero: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro telefono es obligatorio y debe ser un string"}`
+                },
+                Email: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro email no es obligatorio, pero debe ser un string con formato de correo"}`,
+                    pattern: "^[a-zA-Z0-9.]+@",
+                },
+            }
+        },
+    },
+});
+
+/* Esquema de la coleccion de 'empleado'. */ 
+use("db_campus_alquiler");
+db.createCollection("empleado", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "empleado",
+            additionalProperties:false,
+            required: ["empleado", "nombre", "apellido", "documento", "direccion", "numero", "cargo"],
+            properties: {
+                _id: {
+                    bsonType: 'objectId'
+                },
+                empleado: {
+                    bsonType: "int",
+                    description: `{"status": "402", "message": "El ID_Empleado es obligatorio y debe ser un numero entero (int)"}` 
+                },
+                nombre: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El nombre es obligatorio y debe ser un string"}`
+                },
+                apellido: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El apellido es obligatorio y debe ser un string"}`
+                },
+                documento: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El DNI es obligatorio y debe ser un string"}`
+                },
+                direccion: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "La direccion es obligatoria y debe ser un string"}`
+                },
+                numero: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El telefono es obligatorio y debe ser un string"}`
+                },
+                cargo: {
+                    bsonType: "string",
+                    enum: ["Gerente", "Vendedor", "Asistente"],
+                    description: `{"status": "402", "message": "Solo hay 3 cargos, Gerente, Vendedor Y Asistente. Debe de ser un string"}`
+                },
+            }
+        },
+    },
+});
+
+/* Esquema de la coleccion de 'automovil'. */
+use("db_campus_alquiler");
+db.createCollection("automovil", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "automovil",
+            additionalProperties:false,
+            required: ["automovil", "marca", "modelo", "anio", "tipo", "capacidad", "precio_diaro"],
+            properties: {
+                _id: {
+                    bsonType: 'objectId'
+                },
+                automovil: {
+                    bsonType: "int",
+                    description: `{"status": "402", "message": "El parametro ID_Automovil es obligatorio y debe ser un numero entero (int)"}`
+                },
+                marca: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro Marca_Auto es obligatoria y debe ser un string"}`
+                },
+                modelo: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro Modelo_Auto es obligatorio y debe ser un string"}`
+                },
+                anio: {
+                    bsonType: "int",
+                    description: `{"status": "402", "message": "El parametro Anio_Auto es obligatorio y debe ser un numero entero (int)"}`
+                },
+                tipo: {
+                    bsonType: "string",
+                    description: `{"status": "402", "message": "El parametro Tipo_Auto es obligatorio y debe ser un string"}`
+                },
+                capacidad: {
+                    bsonType: "int",
+                    description: `{"status": "402", "message": "El parametro Capacidad_Auto es obligatoria y debe ser un numero entero (int)"}`
+                },
+                precio_diaro: {
+                    bsonType: "number",
+                    description: `{"status": "402", "message": "El parametro Precio_Por_Dia es obligatorio y debe ser un numero"}`
+                },
+            }
+        },
+    },
+});
+
+/* Esquema de la coleccion de 'sucursal'. */
+use("db_campus_alquiler");
+db.createCollection("sucursal", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+    $jsonSchema: {
+        bsonType: "object",
+        title: "sucursal",
+        additionalProperties:false,
+        required: ["sucursal_id", "nombre", "direccion", "telefono"],
+        properties: {
+            _id: {
+                bsonType: 'objectId'
+            },
+            sucursal_id: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Sucursal es obligatorio y debe ser un numero entero (int)"}`
+            },
+            nombre: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Nombre es obligatorio y debe ser un string"}`
+            },
+            direccion: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Direccion es obligatoria y debe ser un string"}`
+            },
+            telefono: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Telefono es obligatorio y este debe ser un string"}`
+            },
+        },
+    },
+    },
+});
+
+/* Esquema de la coleccion de 'sucursal_automovil'. */
+use("db_campus_alquiler");
+db.createCollection("sucursal_automovil", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+    $jsonSchema: {
+        bsonType: "object",
+        additionalProperties:false,
+        title: "sucursal_automovil",
+        required: ["sucursal", "automovil", "cantidad_autos"],
+        properties: {
+            _id: {
+                bsonType: 'objectId'
+            },
+            sucursal: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Sucursal_id es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            automovil: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Automovil_id es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            cantidad_autos: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro Cantidad_Disponible es oblicagorio y debe ser un numero entero (int)."}`
+            }
+        },
+    },
+    },
+});
+
+/* Esquema de la coleccion de 'reserva'. */
+use("db_campus_alquiler");
+db.createCollection("reserva", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+    $jsonSchema: {
+        bsonType: "object",
+        additionalProperties:false,
+        title: "reserva",
+        required: ["reserva", "cliente", "automovil", "reserva_fecha", "inicio","fin","estado"],
+        properties: {
+            _id: {
+                bsonType: 'objectId'
+            },
+            reserva: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Reserva es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            cliente: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Cliente_id es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            automovil: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Automovil_id es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            reserva_fecha: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Fecha_Reserva es oblicagorio y debe ser un string"}`
+            },
+            inicio: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Fecha_Inicio es oblicagorio y debe ser un string"}`
+            },
+            fin: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Fecha_Fin es oblicagorio y debe ser un string"}`
+            },
+            estado: {
+                bsonType: "string",
+                enum : ["Pendiente", "Confirmada", "Disponible", "Activo"],
+                description: `{"status": "402", "message": "Para el parametro Estado_Reserva solo hay 4 opciones: Pendiente, Confirmada, Disponible, Activo. Tiene que ser un string"}`
+            }
+        },
+    },
+    },
+});
+
+/* Esquema de la coleccion de 'alquiler'. */
+use("db_campus_alquiler");
+db.createCollection("alquiler", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+    $jsonSchema: {
+        bsonType: "object",
+        additionalProperties:false,
+        title: "alquiler",
+        required: ["alquiler", "cliente", "automovil", "inicio","fin","costo","estado"],
+        properties: {
+            _id: {
+                bsonType: 'objectId'
+            },
+            alquiler: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Alquiler es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            cliente: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Cliente_id es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            automovil: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Automovil_id es oblicagorio y debe ser un numero entero (int)."}`
+            },
+            inicio: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Fecha_Inicio es oblicagorio y debe ser string"}`
+            },
+            fin: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Fecha_Fin es oblicagorio y debe ser string"}`
+            },
+            costo: {
+                bsonType: "number",
+                description: `{"status": "402", "message": "El parametro Costo_Total es oblicagorio y debe ser un numero."}`
+            },
+            estado: {
+                bsonType: "string",
+                enum : ["Pendiente", "Confirmada", "Disponible", "Activo"],
+                description: `{"status": "402", "message": "Para el parametro Estado_Alquiler solo hay 4 opciones: Pendiente, Confirmada, Disponible, Activo. Tiene que ser un string"}`
+            }
+        },
+    },
+    },
+});
+
+/* Esquema de la coleccion de 'registro_devolucion'. */
+use("db_campus_alquiler");
+db.createCollection("registro_devolucion", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+    $jsonSchema: {
+        bsonType: "object",
+        additionalProperties:false,
+        title: "registro_devolucion",
+        required: ["registro", "alquiler", "empleado", "devolucion", "combustible", "kilometraje", "monto"],
+        properties: {
+            _id: {
+                bsonType: 'objectId'
+            },
+            registro: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Registro es obligatorio y debe ser un numero entero (int)."}`
+            },
+            alquiler: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Alquiler_id es obligatorio y debe ser un numero entero (int)."}`
+            },
+            empleado: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro ID_Empleado_id es obligatorio y debe ser un numero entero (int)."}`
+            },
+            devolucion: {
+                bsonType: "string",
+                description: `{"status": "402", "message": "El parametro Fecha_Devolucion es obligatorio y este debe ser un string."}`
+            },
+            combustible: {
+                bsonType: "number",
+                description: `{"status": "402", "message": "El parametro Combustible_Devuelto es obligatorio y debe ser un numero."}`
+            },
+            kilometraje: {
+                bsonType: "int",
+                description: `{"status": "402", "message": "El parametro Kilometraje_Devuelto es obligatorio y debe ser un numero entero (int)."}`
+            },
+            monto: {
+                bsonType: "number",
+                description: `{"status": "402", "message": "El parametro Monto_Adicional es obligatorio y debe ser un numero."}`
+            }
+        },
+    },
+    },
+});
+
+/* Esquema de la coleccion de 'registro_devregistro_entregaolucion'. */
+use("db_campus_alquiler");
+db.createCollection("registro_entrega", {
+    capped: true,
+    size: 1900,
+    max: 5,
+    validator: {
+    $jsonSchema: {
+        bsonType: "object",
+        additionalProperties:false,
+        title: "registro_entrega",
+        required: ["registro", "alquiler", "empleado", "entrega","combustible","kilometraje"],
+        properties: {
+            _id: {
+                bsonType: 'objectId'
+            },
+            registro: {
+                bsonType: "int",
+                description: "El campo ID_Registro debe ser un número y estar comprendido entre 0 y 20"
+            },
+            alquiler: {
+                bsonType: "int",
+                description: "El campo ID_Alquiler_id debe ser un número y estar comprendido entre 0 y 20"
+            },
+            empleado: {
+                bsonType: "int",
+                description: "El campo ID_Empleado_id debe ser un número y estar comprendido entre 0 y 20"
+            },
+            entrega: {
+                bsonType: "string",
+                description: "Debe informar el campo Fecha_Entrega y este debe ser un string",
+            },
+            combustible: {
+                bsonType: "number",
+                description: "El campo Combustible_Entregado debe ser un número"
+            },
+            kilometraje: {
+                bsonType: "int",
+                description: "El campo Kilometraje_Entregado debe ser un número"
+            }
+        },
+    },
+    },
+});
+
+use("db_campus_alquiler");
+// MÉTODO SIRVE PARA TRAER LOS OBJETOS QUE CONTENGAN Anio DESPUES DE 2020 (SE PUEDE CAMBIAR ID POR OTRA VARIABLE).
+db.Sucursal.find({ Anio: { $gt: 2020 } });
+
+/**
+ * !Petición de toda la tabla Cliente:
+ */
+use("db_campus_alquiler");
+// TRAER TODOS LOS DATOS SIN SU LLAVE "_id".
+db.Cliente.find({}, { _id: 0 });
+/**
+ * !Petición de toda la tabla Automoviles:
+ */
+use("db_campus_alquiler");
+db.Automovil.find({}, { _id: 0 });
+/**
+ * !Petición de los alquileres activos con datos de clientes relacionados:
+ */
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            $and: [
+                { Tipo: { $eq: "Alquiler" } },
+                { Estado: { $eq: "Activo" } }
+            ]
+        }
+    }
+    ,
+    {
+        $lookup: {
+            from: "Cliente",
+            localField: "ID_Cliente",
+            foreignField: "ID",
+            as: "Cliente"
+        }
+    }
+    ,
+    {
+        $unwind: '$Cliente'
+    },
+    {
+        $project: {
+            _id: 0,
+            "Cliente._id": 0,
+            Fecha_Inicio: 0,
+            Fecha_Fin: 0,
+            Costo_Total: 0,
+            ID: 0,
+            ID_Cliente: 0,
+            ID_Automovil: 0
+        }
+    }
+]);
+
+/**
+ * !Peticion de mostrar todas las reservas pendientes con los datos del cliente y el automóvil reservado.
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            $and: [
+                { Tipo: { $eq: "Reserva" } },
+                { Estado: { $eq: "Pendiente" } }
+            ]
+        }
+    },
+    {
+        $lookup: {
+            from: "Cliente",
+            localField: "ID_Cliente",
+            foreignField: "ID",
+            as: "Cliente"
+        }
+    },
+    {
+        $lookup: {
+            from: "Automovil",
+            localField: "ID_Automovil",
+            foreignField: "ID",
+            as: "Automovil"
+        }
+    },
+    {
+        $unwind: '$Cliente'
+    },
+    {
+        $unwind: '$Automovil'
+    },
+    {
+        $group: {
+            _id: "$ID",
+            Tipo: { $first: "$Tipo" },
+            Estado: { $first: "$Estado" },
+            ID_Cliente: { $first: "$ID_Cliente" },
+            ID_Automovil: { $first: "$ID_Automovil" },
+            Automovil: { $push: "$Automovil" },
+            Cliente: { $push: "$Cliente" }
+        }
+    }
+    ,
+    {
+        $project: {
+            "Cliente._id": 0,
+            "Automovil._id": 0
+        }
+    }
+]);
+
+/**
+ * !Petición de obtener los detalles del alquiler con el ID_Alquilerespecífico.
+ */
+/**
+ * ?Se agregan primero los parametros y si se quiere omitir algo en la estracción se agregan los campos separados con una ",".
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 }, { _id: 0, Tipo: 0 });
+
+/**
+ * !Petición de listar los empleados con el cargo de "Vendedor".
+ */
+
+use("db_campus_alquiler");
+db.Empleado.find({ Cargo: "Vendedor" }, { _id: 0 });
+
+/**
+ * !Petición de mostrar la cantidad total de automóviles disponibles en cada sucursal.
+ */
+
+use("db_campus_alquiler");
+db.Sucursal.find({}, { _id: 0 });
+
+/**
+ * !Petición de obtener el costo total de un alquiler específico.  
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").findOne({ Tipo: "Alquiler", ID: 1 }, { _id: 0, Tipo: 0, Fecha_Inicio: 0, Fecha_Fin: 0, ID_Automovil: 0, ID_Cliente: 0 });
+
+/**
+ * !Petición de listar los clientes con el DNI específico. 
+ */
+
+use("db_campus_alquiler");
+db.Cliente.find({ DNI: '12345678' }, { _id: 0 });
+
+/**
+ * !Petición mostrar todos los automóviles con una capacidad mayor a 5 personas. 
+ */
+
+use("db_campus_alquiler");
+db.Automovil.find({ Capacidad: { $gt: 5 } }, { _id: 0 });
+
+/**
+ * !Petición de obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'.
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").find({ Tipo: "Alquiler", Fecha_Inicio: ISODate('2023-07-05') }, { _id: 0 });
+
+/**
+ * !Petición de listar las reservas pendientes realizadas por un cliente específico.
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            $and: [
+                { Tipo: { $eq: "Reserva" } },
+                { Estado: { $eq: "Pendiente" } },
+                { ID_Cliente: { $eq: 2 } }
+            ]
+        }
+    }
+    ,
+    {
+        $lookup: {
+            from: "Cliente",
+            localField: "ID_Cliente",
+            foreignField: "ID",
+            as: "Reserva"
+        }
+    }
+    ,
+    {
+        $project: {
+            _id: 0,
+            "Reserva._id": 0
+        }
+    }
+]);
+
+/**
+ * !Petición de mostrar los empleados con cargo de "Gerente" o "Asistente". 
+ */
+
+use("db_campus_alquiler");
+db.Empleado.find({ $or: [{ Cargo: "Gerente" }, { Cargo: "Asistente" }] }, { _id: 0 });
+
+/**
+ * !Petición de obtener los datos de los clientes que realizaron al menos un alquiler.
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            Tipo: "Alquiler"
+        }
+    },
+    {
+        $group: {
+            _id: "$ID_Cliente",
+            contratos: { $push: "$$ROOT" }
+        }
+    },
+    {
+        $match: {
+            "contratos": { $ne: [] }
+        }
+    },
+    {
+        $lookup: {
+            from: "Cliente",
+            localField: "_id",
+            foreignField: "ID",
+            as: "Cliente"
+        }
+    },
+    {
+        $unwind: "$Cliente"
+    },
+    {
+        $project: {
+            _id: 0,
+            ID_Cliente: "$_id",
+            Nombre: "$Cliente.Nombre",
+            Apellido: "$Cliente.Apellido",
+            DNI: "$Cliente.DNI"
+        }
+    }
+]);
+
+/**
+ * !Petición de listar todos los automóviles ordenados por marca y modelo.
+ */
+
+use("db_campus_alquiler");
+db.Automovil.find({}, { _id: 0 }).sort({ Marca: 1, Modelo: 1 });
+
+/**
+ * !Petición de mostrar la cantidad total de automóviles en cada sucursal junto con su dirección.
+ */
+
+use("db_campus_alquiler");
+db.Sucursal.find({}, { _id: 0, Telefono: 0, });
+
+/**
+ * !Petición de Obtener la cantidad total de alquileres registrados en la base de datos. 
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: { Tipo: "Alquiler" }
+    }
+    ,
+    {
+        $group: {
+            _id: "ID",
+            Cantidad_Alquileres: { $sum: 1 }
+        }
+    }
+]);
+
+/**
+ * !Petición de mostrar los automóviles con capacidad igual a 5 personas y que estén disponibles. 
+ */
+
+use("db_campus_alquiler");
+db.getCollection("Contrato").aggregate([
+    {
+        $match: {
+            $and: [
+                { Tipo: { $eq: "Alquiler" } },
+                { Estado: { $eq: "Disponible" } }
+            ]
+        }
+    }
+    ,
+    {
+        $lookup: {
+            from: "Automovil",
+            localField: "ID_Automovil",
+            foreignField: "ID",
+            as: "Automovil"
+        }
+    }
+    ,
+    {
+        $unwind: "$Automovil"
+    }
+    ,
+    {
+        $match: { "Automovil.Capacidad": 5 }
+    }
+]);
+
+/**
+ * !Petición de Obtener los datos del cliente que realizó la reserva con
+ */
+
+/**
+ * !Petición de listar los alquileres con fecha de inicio entre '2023-07-05' y '2023-07-10'.
+ */
+/**
+ * ?Recordar que "$gte" significa mayor o igual qué y sólo "$gt" significa mayor qué.
+ */
+
+use("db_campus_alquiler");
+db.Contrato.find(    
+    {
+        Tipo: "Alquiler" ,
+        Fecha_Inicio: { $gte: ISODate('2023-07-05'), $lte: ISODate('2023-07-10') }
+    },
+    { _id: 0 }
+);
