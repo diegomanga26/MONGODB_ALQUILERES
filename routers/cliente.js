@@ -1,45 +1,64 @@
-import { ObjectId } from "mongodb";
-import {con} from "../db/atlas.js";
-import {limitGet} from '../limit/config.js';
-import {Router} from "express";
-const appCampus = Router();
+import { con } from "../db/atlas.js";
+import { limitGet } from "../limit/config.js"
+import { Router } from "express";
 
-appCampus.get('/', limitGet(), async(req, res) =>{
-    if(!req.rateLimit) return;
-    let { id } = req.body
-    let db = await con();
-    let usuario = db.collection('usuario');
-    let result = await usuario.find({_id : new ObjectId(id)}).toArray();
-    res.send(result)
+const appCliente = Router();
+
+let db = await con();
+let cliente = db.collection("Cliente");
+
+appCliente.get("/", limitGet(), async (req, res) => {
+    if (!req.rateLimit) return;
+    let result = await cliente.find({}).toArray();
+    res.send(result);
+
 });
 
-appCampus.post('/', limitGet(), async(req, res) => {
-    if(!req.rateLimit) return;
-    let db = await con();
-    let usuario = db.collection('usuario');
-    try {
-        let result = await usuario.insertOne(req.body);
-        console.log(result);
-        res.send(":)");
-    } catch (error) {
-        console.log(error.errInfo.details.schemaRulesNotSatisfied[0]);
-        res.send(":(");
-    }
+appCliente.get("/DNI/:dniEspecifico", limitGet(), async (req, res) => {
+    if (!req.rateLimit) return;
+    let dniEsp = req.params.dniEspecifico
+    let result = await cliente.find(
+        {
+            documento: dniEsp
+        },
+        {
+            _id: 0
+        }
+    ).toArray();
+    res.send(result);
+
 });
 
-appCampus.delete('/', limitGet(), async(req, res) => {
-    if(!req.rateLimit) return;
-    let db = await con();
-    let {id} = req.body;
-    let usuario = db.collection('usuario');
-    try {
-        let result = await usuario.deleteOne({_id : new ObjectId(id)});
-        console.log(result);
-        if()
-        res.send(":)");
-    } catch (error) {
-        res.send(":(");
-    }
-});
+appCliente.get("/minima", limitGet(), async (req, res) => {
+    if (!req.rateLimit) return;
+    let result = await cliente.aggregate([
+        {
+            $lookup: {
+                from: "Alquiler",
+                localField: "cliente",
+                foreignField: "cliente",
+                as: "alquileres"
+            }
+        },
+        {
+            $match: {
+                "alquileres": { $gt: [] }  // Filtrar los clientes con alquileres
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                cliente: 1,
+                nombre: 1,
+                apellido: 1,
+                documento: 1,
+                direccion: 1,
+                numero: 1,
+                Email: 1
+            }
+        }
+    ]).toArray();
+    res.send(result);
 
-export default appCampus;
+});
+export default appCliente;

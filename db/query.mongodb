@@ -821,7 +821,32 @@ db.Cliente.find();
 
 /* 3. Obtener todos los automóviles disponibles para alquiler */
 use("db_campus_alquiler");
-db.Automovil.find();
+
+db.getCollection("Automovil").aggregate([
+    {
+        $lookup: {
+            from: "Alquiler",
+            localField: "automovil",
+            foreignField: "automovil",
+            as: "alquileres"
+        }
+    },
+    {
+        $unwind: "$alquileres",
+    },
+    {
+        $match: {
+            "alquileres.estado": "Disponible"
+        }
+    },
+    {
+        $project: {
+            "_id": 0,
+            "automovil": 0,
+            "alquileres._id": 0
+        }
+    }
+]);
 
 /* 4. Listar todos los alquileres activos junto con los datos de los clientes relacionados. */
 use("db_campus_alquiler");
@@ -867,7 +892,7 @@ db.getCollection("Reserva").aggregate([
     },
     {
         $lookup: {
-            from: "automovil",
+            from: "Automovil",
             localField: "automovil",
             foreignField: "automovil",
             as: "fk_automovil"
