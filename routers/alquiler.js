@@ -111,4 +111,22 @@ appAlquiler.get("/total", limitGet(), async (req, res) => {
     res.send(result);
 });
 
+appAlquiler.get("/fecha/:fechaIni/:fechaFin", limitGet(), async (req, res) => {
+    if (!req.rateLimit) return;
+    let fechaInicial = req.params.fechaIni;
+    let fechaFinal = req.params.fechaFin;
+    let result = await alquiler.find(
+        {
+            inicio: {
+                $gte: fechaInicial,
+                $lte: fechaFinal
+            }
+        },
+        {
+            _id: 0
+        }
+    ).toArray();
+    res.send(result);
+});
+
 export default appAlquiler;
